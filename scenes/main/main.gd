@@ -3,9 +3,9 @@ extends Node2D
 class_name Main
 
 @onready var game_over: AudioStreamPlayer2D = $GameOver
-@onready var start_button: Button = $StartButton
-
+@onready var restart: Button = $Restart
 const BALL = preload("res://scenes/ball/ball.tscn")
+@onready var hud: Control = $HUD
 
 static var _vp_r: Rect2
 
@@ -28,7 +28,7 @@ var ball: Ball
 
 
 func game_start() -> void:
-	start_button.hide()
+	restart.hide()
 	ball = BALL.instantiate()
 	ball.connect("ball_off_screen", self._game_over)
 	add_child(ball)
@@ -40,12 +40,12 @@ func _process(delta: float) -> void:
 
 func _game_over() -> void:
 	game_over.play()
-	start_button.show()
-
-
-func _on_button_pressed() -> void:
-	game_start()
+	restart.show()
 
 
 func _on_pad_body_entered(body: Node2D) -> void:
 	ball.velocity = ball.velocity.bounce(Vector2.UP)
+
+
+func _on_restart_pressed() -> void:
+	game_start()
