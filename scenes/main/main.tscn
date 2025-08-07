@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://6enjresxtae5"]
+
+[ext_resource type="Script" uid="uid://da6m4f0utl4fd" path="res://scenes/main/main.gd" id="1_hyk8p"]
+[ext_resource type="PackedScene" uid="uid://8lh24tqxmi5q" path="res://scenes/pad/pad.tscn" id="3_k2fmo"]
+[ext_resource type="PackedScene" uid="uid://bjd680pohbdmo" path="res://scenes/barrier/barrier.tscn" id="3_l3cfh"]
+[ext_resource type="AudioStream" uid="uid://c7554e2oicwfd" path="res://assets/game-over.mp3" id="4_l3cfh"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_hyk8p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Pad" parent="." instance=ExtResource("3_k2fmo")]
+position = Vector2(329, 619)
+
+[node name="Barrier" parent="." instance=ExtResource("3_l3cfh")]
+
+[node name="GameOver" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_l3cfh")
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 239.0
+offset_top = 248.0
+offset_right = 416.0
+offset_bottom = 355.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 72
+text = "Start"
+icon_alignment = 1
+
+[connection signal="body_entered" from="Pad" to="." method="_on_pad_body_entered"]
+[connection signal="pressed" from="StartButton" to="." method="_on_button_pressed"]
